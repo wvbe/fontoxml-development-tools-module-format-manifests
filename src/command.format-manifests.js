@@ -132,7 +132,7 @@ module.exports = app => {
 			`Fixes missing or erronous package locations in manifest dependencies (eg. "packages/my-extension")`,
 			`Indents everything with tabs instead of anything else`
 		].join('\n\n'))
-		.addOption(new AskNicely.Option('source')
+		.addOption(new app.cli.Option('source')
 			.setDefault('packages', true)
 			.setDescription('Source directory to look for packages containing a manifest. Defaults to "packages". Setting it to anything different is probably not a good idea.')
 		)
