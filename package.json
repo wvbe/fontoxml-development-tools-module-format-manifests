@@ -1,0 +1,16 @@
+{
+  "name": "fotno-module-manifests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Work with fonto manifest files.",
+  "dependencies": {
+    "ask-nicely": "github:wvbe/ask-nicely",
+    "fs-extra": "^2.0.0",
+    "globby": "^6.1.0"
+  }
+}
