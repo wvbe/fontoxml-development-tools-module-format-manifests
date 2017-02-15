@@ -1,15 +1,13 @@
 {
   "name": "fotno-module-manifests",
+  "description": "A tool to regenerate manifest.jsons and clean up existing ones.",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "Work with fonto manifest files.",
   "dependencies": {
     "fs-extra": "^2.0.0",
     "globby": "^6.1.0"
+  },
+  "peerDependencies": {
+    "fotno": "^4.x"
   }
 }

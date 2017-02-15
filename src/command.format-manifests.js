@@ -2,9 +2,7 @@
 const path = require('path'),
 	os = require('os'),
 	fs = require('fs-extra'),
-	glob = require('globby'),
-
-	AskNicely = require('ask-nicely');
+	glob = require('globby');
 
 const OFFICIALLY_SUPPORTED_MANIFEST_PROPERTIES = [
 	'dependencies',
