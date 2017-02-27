@@ -1,5 +1,5 @@
-module.exports = app => {
+module.exports = fotno => {
 	[
 		require('./src/command.format-manifests')
-	].forEach(mod => mod(app));
+	].forEach(mod => mod(fotno));
 };

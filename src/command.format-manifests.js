@@ -122,15 +122,15 @@ function formatManifestController (req, res) {
 	res.success('Done');
 }
 
-module.exports = app => {
-	app.cli.addCommand('format-manifests')
+module.exports = fotno => {
+	fotno.registerCommand('format-manifests')
 		.setDescription(`(Experimental) Does some basic formatting of manifest files.`)
 		.setLongDescription([
 			`Reorders your manifest properties and dependency names alphabetically.`,
 			`Fixes missing or erronous package locations in manifest dependencies (eg. "packages/my-extension")`,
 			`Indents everything with tabs instead of anything else`
 		].join('\n\n'))
-		.addOption(new app.cli.Option('source')
+		.addOption(new fotno.Option('source')
 			.setDefault('packages', true)
 			.setDescription('Source directory to look for packages containing a manifest. Defaults to "packages". Setting it to anything different is probably not a good idea.')
 		)
