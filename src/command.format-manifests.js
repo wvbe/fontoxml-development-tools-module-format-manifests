@@ -67,7 +67,7 @@ function formatManifestController (req, res) {
 		devDependencies: []
 	};
 
-	const code = req.scope[0],
+	const code = req.code,
 		cwd = path.resolve(code.path, req.options.source),
 		manifests = glob.sync(['**/fonto-manifest.json'], {
 			cwd: cwd
