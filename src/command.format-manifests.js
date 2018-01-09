@@ -15,7 +15,7 @@ function transformManifest (propertyTransformers, code, manifestContent, include
 			if(!manifestContent[property])
 				return manifestClean;
 
-			let manifestValue = propertyTransformers[property]
+			const manifestValue = propertyTransformers[property]
 					? propertyTransformers[property].reduce((cleanProperty, transformer) => transformer(code, cleanProperty), manifestContent[property])
 					: manifestContent[property];
 
@@ -27,6 +27,7 @@ function transformManifest (propertyTransformers, code, manifestContent, include
 			return manifestClean;
 		}, {})
 }
+
 function reorderObjectProperties (code, content) {
 	return Object.keys(content)
 		.sort()
@@ -47,7 +48,7 @@ function rewriteLocations (code, content) {
 	});
 
 	Object.keys(content).forEach(packageName => {
-		let activeSourceLocation = allPackageLocations.find(location => path.basename(location) === packageName);
+		const activeSourceLocation = allPackageLocations.find(location => path.basename(location) === packageName);
 
 		if(activeSourceLocation)
 			content[packageName] = path.basename(path.resolve(activeSourceLocation, '..')) + '/' + packageName;
@@ -67,8 +68,12 @@ function formatManifestController (req, res) {
 		devDependencies: []
 	};
 
-	const code = req.code,
-		cwd = path.resolve(code.path, req.options.source),
+	const code = req.fdt.editorRepository;
+
+	if (!code || !code.path) {
+		throw new Error('Sorry, you must run this command in a Fonto editor instance');
+	}
+	const cwd = path.resolve(code.path, req.options.source),
 		manifests = glob.sync(['**/fonto-manifest.json'], {
 			cwd: cwd
 		});
@@ -124,12 +129,14 @@ function formatManifestController (req, res) {
 
 module.exports = fotno => {
 	fotno.registerCommand('format-manifests')
-		.setDescription(`(Experimental) Does some basic formatting of manifest files.`)
+		.addAlias('fm')
+		.setDescription(`Does some basic formatting of manifest files.`)
 		.setLongDescription([
-			`Reorders your manifest properties and dependency names alphabetically.`,
-			`Fixes missing or erronous package locations in manifest dependencies (eg. "packages/my-extension")`,
-			`Indents everything with tabs instead of anything else`
-		].join('\n\n'))
+			`- Reorders your manifest properties and dependency names alphabetically.`,
+			`- Fixes missing or erronous package locations in manifest dependencies (eg. "packages/my-extension")`,
+			`- Indents everything with tabs instead of anything else`,
+			`- Leaves a nice newline at the end of your file`
+		].join('\n'))
 		.addOption(new fotno.Option('source')
 			.setDefault('packages', true)
 			.setDescription('Source directory to look for packages containing a manifest. Defaults to "packages". Setting it to anything different is probably not a good idea.')
